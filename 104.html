@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CLASSIFIQUE OS OBJETOS</title>
+
+<style>
+  * { box-sizing: border-box; }
+  
+  body {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background-color: #f0f2f5;
+    text-align: center;
+    text-transform: uppercase;
+    margin: 0;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  h1 { font-size: 20px; margin: 5px 0; color: #1a2a6c; }
+  p { font-size: 11px; margin-bottom: 8px; color: #d32f2f; font-weight: bold; text-transform: none; }
+
+  /* Área de origem */
+  .itens {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+    background: #ffffff;
+    padding: 8px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin-bottom: 10px;
+    min-height: 65px;
+  }
+
+  .item {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: grab;
+    font-size: 28px;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    transition: transform 0.2s;
+  }
+
+  /* Quando o item entra na box, ele diminui */
+  .box .item {
+    width: 35px;
+    height: 35px;
+    font-size: 22px;
+  }
+
+  .area {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    flex-grow: 1;
+  }
+
+  .box {
+    flex: 1;
+    max-width: 250px;
+    min-height: 180px;
+    border: 3px dashed #1a2a6c;
+    border-radius: 15px;
+    background-color: #ffffff;
+    padding: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  .box h3 { 
+    width: 100%; 
+    font-size: 12px; 
+    margin: 5px 0; 
+    color: #1a2a6c;
+    border-bottom: 1px solid #eee;
+  }
+
+  /* Botões menores */
+  .controles { display: flex; justify-content: center; gap: 10px; margin-bottom: 5px; }
+  
+  button {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    border-radius: 20px;
+    color: white;
+  }
+
+  .btn-enviar { background-color: #27ae60; box-shadow: 0 3px 0 #1e8449; }
+  .btn-reset { background-color: #7f8c8d; box-shadow: 0 3px 0 #626e6f; }
+  button:active { transform: translateY(2px); box-shadow: none; }
+
+  /* Modal de Nota */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.7);
+  }
+
+  .modal-content {
+    background-color: white;
+    margin: 15vh auto;
+    padding: 20px;
+    border-radius: 25px;
+    width: 300px;
+    text-align: center;
+    border: 4px solid #27ae60;
+    animation: zoom 0.3s;
+  }
+
+  @keyframes zoom { from {transform: scale(0)} to {transform: scale(1)} }
+
+  .nota-circulo {
+    width: 80px; height: 80px;
+    background-color: #27ae60;
+    color: white;
+    font-size: 32px;
+    line-height: 80px;
+    border-radius: 50%;
+    margin: 15px auto;
+    font-weight: bold;
+  }
+
+  /* Rodapé discreto */
+  footer {
+    margin-top: auto;
+    padding: 8px;
+    color: #666;
+    font-size: 11px;
+    border-top: 1px solid #ddd;
+    text-transform: none;
+  }
+</style>
+</head>
+
+<body>
+
+<h1>CLASSIFICAÇÃO DE OBJETOS</h1>
+<p>Arraste os itens para os espaços abaixo e clique em finalizar.</p>
+
+<div class="itens" id="origem" ondrop="drop(event)" ondragover="allowDrop(event)">
+  <div class="item" draggable="true" id="v1">🚗</div>
+  <div class="item" draggable="true" id="v2">🐝</div>
+  <div class="item" draggable="true" id="v3">👙</div>
+  <div class="item" draggable="true" id="v4">🚓</div>
+  <div class="item" draggable="true" id="v5">🚑</div>
+  <div class="item" draggable="true" id="v6">🚒</div>
+  <div class="item" draggable="true" id="v7">🐧</div>
+  <div class="item" draggable="true" id="v8">🚜</div>
+  <div class="item" draggable="true" id="v9">🏍️</div>
+  <div class="item" draggable="true" id="v10">👚</div>
+  <div class="item" draggable="true" id="v11">🛴</div>
+  <div class="item" draggable="true" id="v12">🦆</div>
+  <div class="item" draggable="true" id="v13">🚁</div>
+  <div class="item" draggable="true" id="v14">🚀</div>
+  <div class="item" draggable="true" id="v15">🩳</div>
+  <div class="item" draggable="true" id="v16">⛵</div>
+  <div class="item" draggable="true" id="v17">🦩</div>
+  <div class="item" draggable="true" id="v18">👔</div>
+  <div class="item" draggable="true" id="v19">🚆</div>
+  <div class="item" draggable="true" id="v20">🧥</div>
+</div>
+
+<div class="area">
+  <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <h3>ESPAÇO 1</h3>
+  </div>
+
+  <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <h3>ESPAÇO 2</h3>
+  </div>
+
+  <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <h3>ESPAÇO 3</h3>
+  </div>
+</div>
+
+<div class="controles">
+  <button class="btn-enviar" onclick="finalizar()">✔ FINALIZAR</button>
+  <button class="btn-reset" onclick="location.reload()">REINICIAR</button>
+</div>
+
+<div id="modalNota" class="modal">
+    <div class="modal-content">
+        <h2 id="msgTitulo">MUITO BEM!</h2>
+        <p>Sua nota é:</p>
+        <div id="notaValor" class="nota-circulo">0</div>
+        <p id="msgFeedback">Continue praticando!</p>
+        <button class="btn-reset" style="margin-top: 10px;" onclick="fecharModal()">FECHAR</button>
+    </div>
+</div>
+
+<footer>
+    <p><strong>Disciplina: Informática - Profª Adriana Bett Terebinto</strong></p>
+    <p>São Lourenço do Oeste/SC</p>
+</footer>
+
+<script>
+  let itemArrastado = null;
+
+  document.querySelectorAll('.item').forEach(item => {
+    item.addEventListener('dragstart', (e) => {
+      itemArrastado = item;
+    });
+  });
+
+  function allowDrop(event) { event.preventDefault(); }
+
+  function drop(event) {
+    event.preventDefault();
+    let destino = event.target;
+
+    if (destino.classList.contains('item') || destino.tagName === "H3") {
+      destino = destino.parentElement;
+    }
+
+    if (destino.classList.contains('box') || destino.id === "origem") {
+      destino.appendChild(itemArrastado);
+    }
+  }
+
+  function finalizar() {
+    const total = 20;
+    const faltam = document.getElementById('origem').querySelectorAll('.item').length;
+    const organizados = total - faltam;
+    const nota = (organizados / total) * 10;
+
+    document.getElementById('notaValor').innerText = nota.toFixed(1);
+    
+    if (nota === 10) {
+        document.getElementById('msgTitulo').innerText = "PARABÉNS! 🎉";
+        document.getElementById('msgFeedback').innerText = "Você organizou todos os objetos perfeitamente!";
+    } else {
+        document.getElementById('msgTitulo').innerText = "QUASE LÁ!";
+        document.getElementById('msgFeedback').innerText = "Você organizou " + organizados + " itens. Tente completar todos!";
+    }
+
+    document.getElementById('modalNota').style.display = "block";
+  }
+
+  function fecharModal() {
+    document.getElementById('modalNota').style.display = "none";
+  }
+</script>
+
+</body>
+</html>
